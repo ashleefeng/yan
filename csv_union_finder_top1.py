@@ -12,7 +12,7 @@ import sys
 
 # read input files
 outfolder = sys.argv[1]
-print "Analyzing", outfolder
+print "Analyzing folder", outfolder
 filenames = sys.argv[2:]
 frames = []
 for filename in filenames:
@@ -21,7 +21,7 @@ for filename in filenames:
 for i in range(len(frames)):
     frames[i] = frames[i].dropna(axis=0, thresh=2)
 
-print "Printing number of rows in initial files"
+print "Number of rows in initial files:"
 
 top1 = 0
 top1nrows = 0
@@ -29,7 +29,7 @@ for i in range(len(frames)):
 	dfi = frames[i]
 	nrows = dfi.shape[0]
 	if nrows > top1nrows:
-		top1 = dfi
+		top1 = i
 		top1nrows = nrows
 	print nrows
 
@@ -37,11 +37,11 @@ print "Index of largest:", top1
 
 df = frames[top1]
     
-print "Before union", df.shape
+print "Before dropping duplicates", df.shape
 
 df_union = df.drop_duplicates(subset=['x', 'y', 'z'])
 
-print "After union", df_union.shape
+print "After dropping duplicates", df_union.shape
 
 # extract patient name
 
